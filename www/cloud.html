@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>HomeLab - Cloud</title>
+    <style>
+        body {
+            background-color: #282a36; color: #f8f8f2;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0;
+        }
+        .terminal {
+            background-color: #44475a; padding: 30px 50px;
+            border-radius: 10px; border-left: 6px solid #8be9fd; width: 500px;
+        }
+        h1 { color: #8be9fd; margin-top: 0; }
+        .back-btn { color: #ff79c6; text-decoration: none; font-size: 0.9em; }
+        .back-btn:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <a href="http://localhost:8080/" class="back-btn">< Retour au Hub</a>
+        <h1 style="margin-top: 15px;">[☁️] Cloud Storage</h1>
+        <p>Espace de stockage sécurisé.</p>
+        
+        <div style="background-color: #282a36; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <!-- Attention ici : l'action est /cloud -->
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <input type="file" name="upload" style="color: #f8f8f2; margin-bottom: 15px; width: 100%;">
+                <br>
+                <button type="submit" style="background-color: #8be9fd; color: #282a36; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px;">
+                    Uploader le fichier
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

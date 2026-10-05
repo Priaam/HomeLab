@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>HomeLab Hub</title>
+    <style>
+        body {
+            background-color: #282a36; color: #f8f8f2;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0;
+        }
+        .terminal {
+            background-color: #44475a; padding: 30px 50px;
+            border-radius: 10px; box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+            border-left: 6px solid #50fa7b; width: 500px;
+        }
+        h1 { color: #ff79c6; margin-top: 0; }
+        a { color: #8be9fd; text-decoration: none; font-weight: bold; }
+        a:hover { color: #50fa7b; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 15px 0; background-color: #282a36; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <h1>[~] HomeLab Hub</h1>
+        <p>Connecté au serveur C++ de Priam.</p>
+        <hr style="border: 1px solid #6272a4;">
+        
+        <h3 style="color: #f1fa8c;">Applications Disponibles :</h3>
+        <ul>
+            <li><a href="http://localhost:8081/">> ./cloud_storage.sh (Gérer les fichiers)</a></li>
+            <li><a href="#" style="color: #6272a4;">> ./monitor.sh (Bientôt disponible)</a></li>
+        </ul>
+        
+        <p style="color: #50fa7b; margin-top: 30px;">> _</p>
+    </div>
+</body>
+</html>
