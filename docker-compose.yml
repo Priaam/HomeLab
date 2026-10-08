@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: homelab_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_super_secret
+      MYSQL_DATABASE: homelab
+      MYSQL_USER: priam
+      MYSQL_PASSWORD: CBB934sx21!
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  db_admin:
+    image: adminer:latest
+    container_name: homelab_adminer
+    restart: always
+    ports:
+      - "8082:8080"
+    depends_on:
+      - db
+
+volumes:
+  db_data:

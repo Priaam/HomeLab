@@ -5,24 +5,27 @@ OBJ_DIR     = obj/
 INC_DIR     = include/
 
 SRC_FILES   = main.cpp \
+			  database/DatabaseManager.cpp \
 			  config/Config.cpp \
               core/Server.cpp \
 			  core/Server_handleClientData.cpp \
 			  core/Server_handleRequests.cpp \
               http/HttpRequest.cpp \
               http/HttpResponse.cpp \
-			  cloud/cloudManager.cpp
+			  http/HttpUtils.cpp \
+			  cloud/CloudManager.cpp
 	
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I $(INC_DIR)
+LDFLAGS  = -lmariadb
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	@mkdir -p $(dir $@)

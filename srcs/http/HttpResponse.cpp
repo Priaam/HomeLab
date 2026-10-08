@@ -8,6 +8,7 @@ HttpResponse::HttpResponse()
 {
 	body_ = "";
 	statusCode_ = 200;
+	contentType_ = "text/html";
 }
 
 HttpResponse::~HttpResponse()
@@ -39,6 +40,15 @@ void	HttpResponse::setBodyFromFile(const std::string& filepath)
 	file.close();
 }
 
+void	HttpResponse::replaceInBody(const std::string& target, const std::string& replacement)
+{
+	size_t	pos = body_.find(target);
+	if (pos != std::string::npos)
+		body_.replace(pos, target.length(), replacement);
+}
+
+void	HttpResponse::setContentType(const std::string& contentType) {contentType_ = contentType;}
+
 std::string	HttpResponse::generateResponse() const
 {
 	std::ostringstream	stream;
@@ -55,7 +65,7 @@ std::string	HttpResponse::generateResponse() const
         stream << "HTTP/1.1 500 Internal Server Error\r\n";
 	else
         stream << "HTTP/1.1 " << statusCode_ << " Unknown\r\n";
-	stream << "Content-Type: text/html\r\n";
+	stream << "Content-Type: " << contentType_ << "\r\n";
 	stream << "Content-Length: " << body_.length() << "\r\n";
 
 	stream << "\r\n";
@@ -64,3 +74,5 @@ std::string	HttpResponse::generateResponse() const
 
 	return stream.str();
 }
+
+int HttpResponse::getStatusCode() const {return (statusCode_);}

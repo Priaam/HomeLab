@@ -2,22 +2,102 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Erreur 400</title>
     <style>
-        body { background-color: #282a36; color: #f8f8f2; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .terminal { background-color: #44475a; padding: 30px 50px; border-radius: 10px; border-left: 6px solid #ff5555; width: 500px; box-shadow: 10px 10px 20px rgba(0,0,0,0.5); }
-        h1 { color: #ff5555; margin-top: 0; }
-        a { color: #8be9fd; text-decoration: none; font-weight: bold; }
-        a:hover { color: #50fa7b; }
-    </style>
+:root{--bg:#fafafa;--panel:#fff;--side:#f4f4f5;--ink:#18181b;--sub:#52525b;--mute:#8b8b94;--line:#e4e4e7;--hover:#f4f4f5;--accent:#059669;--accent-ink:#fff;--ok:#059669;--okbg:#ecfdf5;--bad:#dc2626;--badbg:#fef2f2;--warn:#d97706;--warnbg:#fffbeb;--ring:rgba(5,150,105,.35)}
+@media(prefers-color-scheme:dark){:root{--bg:#09090b;--panel:#111114;--side:#0c0c0f;--ink:#fafafa;--sub:#a1a1aa;--mute:#71717a;--line:#26262b;--hover:#18181c;--accent:#34d399;--accent-ink:#052e1f;--ok:#34d399;--okbg:rgba(52,211,153,.1);--bad:#f87171;--badbg:rgba(248,113,113,.1);--warn:#fbbf24;--warnbg:rgba(251,191,36,.1);--ring:rgba(52,211,153,.4)}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;grid-template-columns:232px 1fr;background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:0;box-shadow:0 0 0 3px var(--ring)}
+svg.i{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+aside{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:16px 12px;background:var(--side);border-right:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 20px;font-weight:650;font-size:15px;letter-spacing:-.01em}
+.logo{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--accent-ink)}
+nav{display:flex;flex-direction:column;gap:2px}
+nav .lbl{padding:12px 8px 6px;font-size:12px;color:var(--mute);font-weight:500}
+nav a,nav span.soon{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;color:var(--sub);font-weight:500}
+nav a:hover{background:var(--hover);color:var(--ink)}
+nav a[aria-current]{background:var(--hover);color:var(--ink);box-shadow:inset 2px 0 0 var(--accent)}
+nav span.soon{opacity:.5}
+.foot{margin-top:auto;padding:12px 8px 0;border-top:1px solid var(--line);font-size:12px;color:var(--mute);display:grid;gap:2px}
+.foot b{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px var(--okbg)}
+main{min-width:0;padding:32px 40px 64px;max-width:960px;width:100%}
+.crumb{display:flex;align-items:center;gap:8px;margin-bottom:14px;color:var(--mute);font-size:13px}
+.crumb a:hover{color:var(--ink)}
+h1{margin:0;font-size:24px;line-height:1.25;letter-spacing:-.02em;font-weight:650}
+.sub{margin:6px 0 28px;color:var(--sub);max-width:60ch}
+h2{margin:32px 0 12px;font-size:13px;font-weight:600;color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.stat small{display:block;color:var(--mute);font-size:12px}
+.stat strong{display:block;margin-top:4px;font-size:20px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tr{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;padding:12px 16px;border-top:1px solid var(--line)}
+.tr:first-child{border-top:0}
+a.tr:hover{background:var(--hover)}
+.tr b{display:block;font-weight:550}
+.tr small{color:var(--mute);font-size:12.5px}
+code,.mono{font:12.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--sub)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:500;background:var(--okbg);color:var(--ok)}
+.pill.n{background:var(--hover);color:var(--mute)}
+.pill.bad{background:var(--badbg);color:var(--bad)}
+.pill.warn{background:var(--warnbg);color:var(--warn)}
+.drop{position:relative;display:flex;align-items:center;gap:16px;padding:20px;background:var(--panel);border:1px dashed var(--line);border-radius:10px;transition:.15s}
+.drop:hover,.drop.on{border-color:var(--accent);background:var(--hover)}
+.drop .ic{display:grid;place-items:center;width:40px;height:40px;border-radius:9px;background:var(--hover);border:1px solid var(--line);color:var(--sub)}
+.drop strong{display:block;font-weight:550;word-break:break-all}
+.drop small{color:var(--mute);font-size:12.5px}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.row{display:flex;justify-content:flex-end;margin-top:12px}
+button,.btn{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border:1px solid transparent;border-radius:8px;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:600;cursor:pointer}
+.btn.g{background:var(--panel);color:var(--ink);border-color:var(--line)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:not(:disabled):hover,.btn:hover{filter:brightness(1.07)}
+.btn.g:hover{background:var(--hover);filter:none}
+.files{list-style:none;margin:0;padding:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.files li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-top:1px solid var(--line);word-break:break-all}
+.files li:first-child{border-top:0}
+.files li:hover{background:var(--hover)}
+.files a{color:var(--ink);font-weight:500}
+.files a:hover{color:var(--accent)}
+.err{max-width:560px;padding-top:12vh}
+.code{display:inline-block;margin-bottom:18px;padding:3px 10px;border-radius:7px;border:1px solid var(--line);font:600 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.err .big{font-size:clamp(72px,14vw,120px);line-height:1;font-weight:200;letter-spacing:-.05em;margin:0 0 12px;color:var(--c,var(--bad))}
+.detail{margin:14px 0 0;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;word-break:break-word}
+.acts{display:flex;gap:10px;margin-top:28px}
+@media(max-width:760px){body{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;align-items:center;gap:12px;padding:10px 14px;overflow-x:auto}.brand{padding:0}nav{flex-direction:row}nav .lbl,.foot{display:none}main{padding:24px 18px 48px}.stats{grid-template-columns:1fr}.tr{grid-template-columns:1fr auto}.tr .mono{display:none}}
+.err{--c:var(--bad)}</style>
 </head>
 <body>
-    <div class="terminal">
-        <h1>[!] 400 - Bad Request</h1>
-        <p>Requête invalide ou corrompue.</p>
-        <p style="color: #ffb86c;">> Cause probable : Vous avez cliqué sur "Uploader" sans sélectionner de fichier.</p>
-        <hr style="border: 1px solid #6272a4;">
-        <p>> <a href="/">./retour_accueil.sh</a></p>
-    </div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></symbol>
+<symbol id="cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-7.97A6 6 0 0 1 18 9.5 4.5 4.5 0 0 1 17.5 18z"/></symbol>
+<symbol id="pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+<symbol id="up" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></symbol>
+<symbol id="srv" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></symbol>
+<symbol id="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="back" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+</defs></svg>
+    <aside>
+        <a class="brand" href="http://localhost:8080/"><span class="logo"><svg class="i"><use href="#srv"/></svg></span>HomeLab</a>
+        <nav>
+            <span class="lbl">Navigation</span>
+            <a href="http://localhost:8080/"><svg class="i"><use href="#home"/></svg>Vue d'ensemble</a>
+            <a href="http://localhost:8081/"><svg class="i"><use href="#cloud"/></svg>Cloud Storage</a>
+            <span class="soon"><svg class="i"><use href="#pulse"/></svg>Monitor</span>
+        </nav>
+        <div class="foot"><b><span class="dot"></span>Serveur en ligne</b><span>Serveur C++ de Priam</span></div>
+    </aside>
+    <main class="err">
+        <span class="code">HTTP 400</span>
+        <div class="big">400</div>
+        <h1>Requête invalide</h1>
+        <p class="sub" style="margin-bottom:0">La requête est invalide ou corrompue.</p>
+        <p class="sub" style="margin:8px 0 0">Vous avez probablement cliqué sur « Téléverser » sans sélectionner de fichier.</p>
+        <div class="acts"><a class="btn" href="/"><svg class="i"><use href="#back"/></svg>Retour à l'accueil</a></div>
+    </main>
 </body>
 </html>

@@ -1,4 +1,5 @@
 #include "http/HttpRequest.hpp"
+#include "http/HttpUtils.hpp"
 
 #include <sstream>
 #include <iostream>
@@ -6,7 +7,9 @@
 HttpRequest::HttpRequest(const std::string& rawData)
 {
 	std::istringstream	stream(rawData);
+
 	stream >> method_ >> path_ >> version_;
+	path_ = HttpUtils::urlDecode(path_);
 
 	size_t hostPos = rawData.find("Host: ");
     if (hostPos != std::string::npos)

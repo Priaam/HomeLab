@@ -148,7 +148,6 @@ void	Server::run()
                         break;
                     }
                 }
-
 				if (isNewConnection)
                 {
                     acceptNewClient_(pollFds_[i].fd);

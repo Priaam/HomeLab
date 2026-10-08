@@ -1,5 +1,6 @@
 #include "core/Server.hpp"
-#include "cloud/cloudManager.hpp"
+#include "cloud/CloudManager.hpp"
+#include "http/HttpUtils.hpp"
 
 #include <iostream>
 #include <unistd.h>
@@ -13,10 +14,39 @@ void	Server::handleGetRequest_(const HttpRequest& request, HttpResponse& respons
 	{
 		std::string	fullPath = config.rootPath + config.indexName;
 		response.setBodyFromFile(fullPath);
+
+		if (config.indexName == "cloud.html")
+		{
+			std::string fileList = CloudManager::getFileList(config.uploadDir);
+			response.replaceInBody("{{FILE_LIST}}", fileList);
+		}
+		response.setStatusCode(200);
 		std::cout << "[SERVER] Sending " << config.indexName << " page to the client " << std::endl;
 	}
 	else
-		servError_(404, response, config);
+	{
+		std::string	target = request.getPath();
+		if (!target.empty() && target[0] == '/')
+			target.erase(0, 1);
+
+		std::string	fullPath = "";
+		if (!config.uploadDir.empty())
+			fullPath = config.uploadDir + target;
+		else
+			fullPath = config.rootPath + target;
+
+		response.setBodyFromFile(fullPath);
+
+		if (response.getStatusCode() == 404)
+			servError_(404, response, config);
+		else
+		{
+			response.setStatusCode(200);
+			std::string	extension = HttpUtils::getExtensionFile(fullPath);
+			std::string	mimeType = HttpUtils::getMimeType(extension);
+			response.setContentType(mimeType);
+		}
+	}
 }
 
 void	Server::handlePostRequest_(int clientFd, const HttpRequest& request, HttpResponse& response, const ServerConfig& config)

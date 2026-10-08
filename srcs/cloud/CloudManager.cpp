@@ -1,10 +1,11 @@
-#include "cloud/cloudManager.hpp"
+#include "cloud/CloudManager.hpp"
 
 #include <sstream>
 #include <fstream>
 #include <iostream>
 #include <cstdio>
 #include <sys/stat.h>
+#include <dirent.h>
 
 std::string	CloudManager::parseMultipartNameFile_(const std::string& postBody)
 {
@@ -92,4 +93,35 @@ bool	CloudManager::processDelete(std::string targetPath, const std::string& save
 
 	std::string	fullPath = saveDirectory + targetPath;
 	return (deleteFileOnDisk_(fullPath));
+}
+
+std::string	CloudManager::getFileList(const std::string& directory)
+{
+	std::string	htmlList = "";
+	DIR*	dir = opendir(directory.c_str());
+
+	if (dir == NULL)
+		return ("<li style='color: red;'>Erreur: Impossible d'ouvrir le dossier.</li>");
+
+	struct dirent*	entry;
+	while ((entry = readdir(dir)) != NULL)
+	{
+		std::string	fileName = entry->d_name;
+		if (fileName != "." && fileName != "..")
+		{
+			
+			htmlList.append(
+				"<li style=\"margin-bottom: 10px;\">"
+				"<a href=\"/" + fileName + "\" style=\"color: #8be9fd; text-decoration: none;\">" + fileName + "</a>"
+				"<button onclick=\"fetch('/" + fileName + "', {method: 'DELETE'}).then(()=>location.reload())\" style=\"color: #ff5555; background: none; border: none; cursor: pointer; font-weight: bold; margin-left: 15px;\">[X]</button>"
+			);
+		}
+	}
+	closedir(dir);
+
+	if (htmlList.empty())
+		return ("<li>Le dossier est vide.</li>");
+
+
+	return (htmlList);
 }

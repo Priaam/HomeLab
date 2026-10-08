@@ -47,6 +47,8 @@ class Server
 		void				servError_(int code, HttpResponse& response, const ServerConfig& config);
 
 	public:
+
+		
 		Server(const Config& config);
 		~Server();
 

@@ -1,7 +1,7 @@
 #include "core/Server.hpp"
 #include "http/HttpRequest.hpp"
 #include "http/HttpResponse.hpp"
-#include "cloud/cloudManager.hpp"
+#include "cloud/CloudManager.hpp"
 
 #include <iostream>
 #include <unistd.h>

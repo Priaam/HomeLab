@@ -14,8 +14,10 @@ class CloudManager
 
 
 	public:
-		static bool	processUpload(const std::string& postBody, const std::string& saveDirectory);
-		static bool	processDelete(std::string targetPath, const std::string& saveDirectory);
+		static bool			processUpload(const std::string& postBody, const std::string& saveDirectory);
+		static bool			processDelete(std::string targetPath, const std::string& saveDirectory);
+
+		static std::string	getFileList(const std::string& directory);
 };
 
 #endif
