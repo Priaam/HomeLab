@@ -7,6 +7,11 @@
 
 Config::Config(const std::string& filename)
 {
+	dbHost_ = "";
+	dbName_ = "";
+	dbUser_ = "";
+	dbPass_ = "";
+
 	parseFile_(filename);
 }
 
@@ -29,6 +34,21 @@ void	Config::processLine_(const std::string& line, bool& inServerBlock, ServerCo
 	if (keyword[0] == '#')
 		return;
 	
+	if (keyword == "db_host" || keyword == "db_user" || keyword == "db_pass" || keyword == "db_name")
+    {
+        std::string value;
+        if (!(iss >> value))
+            throw std::runtime_error("Error Config : missing value for -> " + keyword);
+        cleanValue_(value);
+
+        if (keyword == "db_host") dbHost_ = value;
+        else if (keyword == "db_user") dbUser_ = value;
+        else if (keyword == "db_pass") dbPass_ = value;
+        else if (keyword == "db_name") dbName_ = value;
+        
+        return;
+    }
+
 	if (keyword == "server")
 	{
 		currentServer.port = 8080;

@@ -10,10 +10,12 @@ private:
 	MYSQL*	conn_;
 
 public:
-	DatabaseManager();
+	DatabaseManager(const std::string& host, const std::string& user, const std::string& pass, const std::string& db);
 	~DatabaseManager();
 
 	bool	initDatabase();
+
+	bool	createUser(const std::string& username, const std::string& password);
 };
 
 #endif

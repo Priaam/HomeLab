@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>HomeLab - Inscription</title>
+</head>
+<body>
+    <h1>Créer un compte</h1>
+    <!-- Le formulaire pointe vers /register et utilise la méthode POST -->
+    <form action="/register" method="POST">
+        <label for="username">Pseudo :</label>
+        <input type="text" id="username" name="username" required>
+        <br><br>
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <button type="submit">S'inscrire</button>
+    </form>
+</body>
+</html>

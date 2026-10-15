@@ -8,10 +8,11 @@
 int	main()
 {
 	try {
-		DatabaseManager db;
+		Config config("homelab.conf");
+
+		DatabaseManager db(config.getDbHost(), config.getDbUser(), config.getDbPass(), config.getDbName());
 		db.initDatabase();
 
-		Config config("homelab.conf");
 		Server myServer(config);
 		myServer.run();
 	}

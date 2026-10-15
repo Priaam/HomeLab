@@ -4,6 +4,7 @@
 # include "config/Config.hpp"
 # include "http/HttpRequest.hpp"
 # include "http/HttpResponse.hpp"
+# include "database/DatabaseManager.hpp"
 
 # include <netinet/in.h>
 # include <poll.h>
@@ -22,6 +23,9 @@ class Server
 {
 	private:
 		const						Config& config_;
+		DatabaseManager&			db_;
+		
+
 		std::vector<int>			serverFds_;
 		std::vector<struct pollfd>	pollFds_;
 

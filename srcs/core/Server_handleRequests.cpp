@@ -51,7 +51,22 @@ void	Server::handleGetRequest_(const HttpRequest& request, HttpResponse& respons
 
 void	Server::handlePostRequest_(int clientFd, const HttpRequest& request, HttpResponse& response, const ServerConfig& config)
 {
-	(void)request;
+	if (request.getPath() == "/register")
+	{
+		std::cout << "[SERVER] Registration request received" << std::endl;
+		std::string rawData = clientStates_.at(clientFd).buffer;
+
+		size_t	headerEndPos = rawData.find("\r\n\r\n");
+		if (headerEndPos != std::string::npos)
+		{
+			std::string	body = rawData.substr(headerEndPos + 4);
+
+			size_t usernamePos = body.find("username=");
+			if (usernamePos != std::string::npos)
+				std::string	username = body.substr()
+		}
+		return ;
+	}
 
 	if (config.uploadDir.empty())
     {
