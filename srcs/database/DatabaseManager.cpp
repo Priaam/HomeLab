@@ -56,7 +56,7 @@ bool	DatabaseManager::createUser(const std::string& username, const std::string&
 	std::vector<char>	escapedPassword((passLen * 2) + 1, '\0');
 
 	mysql_real_escape_string(conn_, &escapedUsername[0], username.c_str(), userLen);
-	mysql_real_escape_string(conn_, &escapedPassword[0], password.c_str(), userLen);
+	mysql_real_escape_string(conn_, &escapedPassword[0], password.c_str(), passLen);
 
 	std::string	query = "INSERT INTO Users (username, password) VALUES ('";
 	query += &escapedUsername[0];

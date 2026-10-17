@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>HomeLab - Inscription</title>
+    <!-- Tu peux coller ici la balise <style> de ton index.html pour garder ton thème sombre/clair -->
 </head>
-<body>
-    <h1>Créer un compte</h1>
-    <!-- Le formulaire pointe vers /register et utilise la méthode POST -->
-    <form action="/register" method="POST">
-        <label for="username">Pseudo :</label>
-        <input type="text" id="username" name="username" required>
-        <br><br>
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
-        <br><br>
-        <button type="submit">S'inscrire</button>
-    </form>
+<body style="background-color: #fafafa; color: #18181b; font-family: -apple-system, sans-serif; padding: 40px; display: flex; justify-content: center;">
+    <main style="max-width: 400px; width: 100%;">
+        <h1 style="margin-bottom: 5px;">Créer un compte</h1>
+        <p style="color: #52525b; margin-bottom: 25px;">Rejoignez le HomeLab.</p>
+        
+        <!-- Le point d'entrée vers ton C++ -->
+        <form action="/register" method="POST" style="background: #fff; padding: 25px; border-radius: 10px; border: 1px solid #e4e4e7;">
+            
+            <div style="margin-bottom: 15px;">
+                <label for="username" style="display:block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Pseudo</label>
+                <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #e4e4e7; box-sizing: border-box;">
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label for="password" style="display:block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Mot de passe</label>
+                <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #e4e4e7; box-sizing: border-box;">
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="submit" style="background: #059669; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer;">S'inscrire</button>
+            </div>
+        </form>
+    </main>
 </body>
 </html>

@@ -61,9 +61,36 @@ void	Server::handlePostRequest_(int clientFd, const HttpRequest& request, HttpRe
 		{
 			std::string	body = rawData.substr(headerEndPos + 4);
 
-			size_t usernamePos = body.find("username=");
-			if (usernamePos != std::string::npos)
-				std::string	username = body.substr()
+			size_t	usernamePos = body.find("username=");
+			size_t	passwordPos = body.find("password=");
+
+			if (usernamePos != std::string::npos && passwordPos != std::string::npos)
+			{
+				size_t	usernameStart = usernamePos + 9;
+				size_t	usernameEnd = body.find("&", usernameStart);
+				std::string	username = (usernameEnd != std::string::npos) 
+											? body.substr(usernameStart, usernameEnd - usernameStart)
+											: body.substr(usernameStart);
+				size_t	passwordStart = passwordPos + 9;
+                size_t	passwordEnd = body.find("&", passwordStart);
+                std::string password = (passwordEnd != std::string::npos) 
+                        					? body.substr(passwordStart, passwordEnd - passwordStart) 
+                                    		: body.substr(passwordStart);
+				username = HttpUtils::urlDecode(username);
+				password = HttpUtils::urlDecode(password);
+
+				std::cout << "[SERVER] Registration request for: " << username << std::endl;
+
+				if (db_.createUser(username, password))
+				{
+					response.setStatusCode(200);
+					response.setBody("<h1>Inscription reussie pour " + username + " !</h1>");
+				}
+				else
+					servError_(400, response, config);
+			}
+			else
+				servError_(400, response, config);
 		}
 		return ;
 	}

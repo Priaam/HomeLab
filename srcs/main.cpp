@@ -9,11 +9,9 @@ int	main()
 {
 	try {
 		Config config("homelab.conf");
-
 		DatabaseManager db(config.getDbHost(), config.getDbUser(), config.getDbPass(), config.getDbName());
 		db.initDatabase();
-
-		Server myServer(config);
+		Server myServer(config, db);
 		myServer.run();
 	}
 	catch (const std::exception& e)

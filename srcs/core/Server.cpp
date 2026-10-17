@@ -8,7 +8,7 @@
 #include <iostream>
 #include <string.h>
 
-Server::Server(const Config& config) : config_(config)
+Server::Server(const Config& config, DatabaseManager& db) : config_(config), db_(db)
 {
 	setupSockets_();
 	bindAndListen_();

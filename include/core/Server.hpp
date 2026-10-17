@@ -22,7 +22,7 @@ struct ClientState
 class Server
 {
 	private:
-		const						Config& config_;
+		const Config&				config_;
 		DatabaseManager&			db_;
 		
 
@@ -53,7 +53,7 @@ class Server
 	public:
 
 		
-		Server(const Config& config);
+		Server(const Config& config, DatabaseManager& db);
 		~Server();
 
 		void				run();
